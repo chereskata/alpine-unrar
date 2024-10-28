@@ -1,0 +1,27 @@
+# Contributor: Krassy Boykinov <87526889+chereskata@users.noreply.github.com>
+# Maintainer: Krassy Boykinov <87526889+chereskata@users.noreply.github.com>
+pkgname=unrar
+pkgver=7.0.9
+pkgrel=0
+pkgdesc="Command line utility to extract .rar archives"
+url="https://www.rarlab.com/rar_add.htm"
+arch="all"
+license="custom"
+subpackages="$pkgname-doc"
+source="https://www.rarlab.com/rar/unrarsrc-$pkgver.tar.gz"
+builddir="$srcdir/unrar"
+options="!check" # no tests available
+
+build() {
+	make CXXFLAGS="$CXXFLAGS" unrar
+}
+
+package() {
+	make DESTDIR="$pkgdir/usr" install-unrar
+
+	install -Dm644 license.txt "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+}
+
+sha512sums="
+4dff760bd69275dcd9bacac7a8fa9a6e68e2d047ea3775abc16a80d9a6e277b686153faafb1b711582d86eabfdf3254c601d9f585b28104dbd85ece4868876ed  unrarsrc-7.0.9.tar.gz
+"
